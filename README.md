@@ -1,11 +1,11 @@
 # Searchable Encrytion
-# Data Security and Privacy Project 3
 
+_Data Security and Privacy Project 3_
 _Collaborators: Jonathan Kenney and Brennan Thomas_
 
 ## Setup
 
-Install a (stable version)[https://www.python.org/downloads/] of Python 3.6+
+Install a [stable version](https://www.python.org/downloads/) of Python 3.6+
 
 Use pip to install the `cryptography` package
 
