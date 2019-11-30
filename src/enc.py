@@ -57,7 +57,7 @@ def encFile(sk, iv, fi):
   # generate the ciphertext and convert to hex
   ct = encryptor.update(m_padded) + encryptor.finalize()
 
-  ctfname = 'c' + fi.name[1] + '.txt'
+  ctfname = 'c' + fi.name[1] + '.txt' # TODO: need to make this more generic, file number may be more than one digit
 
   # write ciphertext to file in hex
   with open('./data/ciphertextfiles/' + ctfname, 'w') as f:
