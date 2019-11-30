@@ -1,17 +1,17 @@
 # Searchable Encryption: Encryption Module
 # Author: Jonathan Kenney (M08837382) and Brennan Thomas (M########)
 
-# imports
+# IMPORTS
 import os
 import re
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import padding
 
-# constants
+# CONSTANTS
 AES_BLOCK_SIZE = 16   # AES block size (bytes)
 
-
+# HELPER FUNCTIONS
 # encrypt a keyword with AES-ECB
 def encKeyword(sk, word):
 
@@ -65,7 +65,7 @@ def encFile(sk, iv, fi):
   return ctfname
 
 # build encrypted inverted index
-def buildIndex(dir_path, detkey, probkey, iv):
+def buildIndex(dir_path, prfkey, aeskey, iv):
 
   index = {}
 
@@ -73,7 +73,7 @@ def buildIndex(dir_path, detkey, probkey, iv):
   for fi in os.scandir(dir_path):
 
     # get encrypted file
-    ctfname = encFile(probkey, iv, fi)
+    ctfname = encFile(aeskey, iv, fi)
     
     # open file and split words on whitespace
     with open(fi.path, 'r') as f:
@@ -84,7 +84,7 @@ def buildIndex(dir_path, detkey, probkey, iv):
         word = re.sub(r'[^\w\s]','',word)
         
         # encrypt the keyword
-        cword = encKeyword(detkey, word)
+        cword = encKeyword(prfkey, word)
 
         # if word not already key for index then create new key
         if cword not in index:
@@ -95,8 +95,7 @@ def buildIndex(dir_path, detkey, probkey, iv):
 
   return index
 
-
-# main program
+# MAIN PROGRAM
 def main():
 
   # initialize vars
@@ -122,10 +121,13 @@ def main():
   # format string to write index to text file
   write_string = ''
   for key in index.keys():
-      write_string + key + ':'
-      for ctfname in index[key]:
-        write_string + ctfname + ','
-      write_string = write_string + '\n'
+    write_string = write_string + key + ':'
+    for ctfname in index[key]:
+      write_string = write_string + ctfname + ','
+    write_string = write_string[:-1]
+    write_string = write_string + '\n'
+  write_string = write_string[:-1]
+
 
   # write encrypted index to text file
   with open('./data/index.txt', 'w') as f:

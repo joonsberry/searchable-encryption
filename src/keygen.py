@@ -1,12 +1,11 @@
 # Searchable Encryption: PRF and AES Key Generation
 # Authors: Jonathan Kenney (M08837382) and Brennan Thomas (M########)
 
-# imports
-from sys import argv
+# IMPORTS
 from os import urandom
+from sys import argv
 
-
-# main program
+# MAIN PROGRAM
 def main():
   
   # get key size from args
