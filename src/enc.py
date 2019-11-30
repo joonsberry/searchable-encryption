@@ -15,6 +15,8 @@ AES_BLOCK_SIZE = 16   # AES block size (bytes)
 # encrypt a keyword with AES-ECB
 def encKeyword(sk, word):
 
+  print(word)
+
   m = word.encode('utf-8')
 
   # pad the data

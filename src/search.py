@@ -78,7 +78,7 @@ def main():
   
       ctfnames = ctfnames + ctfname + ' '
       
-      ct = f.read()
+      ct = bytes.fromhex(f.read())
       m = decFile(aeskey, iv, ct)
       dec_table = dec_table + ctfname + ': ' + m + '\n'
   
