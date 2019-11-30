@@ -1,6 +1,7 @@
 # Searchable Encrytion
 
 _Data Security and Privacy Project 3_
+
 _Collaborators: Jonathan Kenney and Brennan Thomas_
 
 ## Setup
