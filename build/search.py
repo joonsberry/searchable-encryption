@@ -1,10 +1,11 @@
 # Searchable Encryption: Search and Decryption Module
-# Author: Jonathan Kenney (M08837382) and Brennan Thomas (M########)
+# Author: Jonathan Kenney (M08837382) and Brennan Thomas (M10668733)
 
 # IMPORTS
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import padding
+from timeit import default_timer as timer
 
 # CONSTANTS
 AES_BLOCK_SIZE = 16   # AES block size (bytes)
@@ -71,22 +72,31 @@ def main():
 
   ctfnames = ''
   dec_table = ''
+
+  start = timer()
   
-  for ctfname in index[token]:
-    
-    with open('./data/ciphertextfiles/' + ctfname, 'r') as f:
-  
-      ctfnames = ctfnames + ctfname + ' '
+  if token in index:
+    for ctfname in index[token]:
       
-      ct = bytes.fromhex(f.read())
-      m = decFile(aeskey, iv, ct)
-      dec_table = dec_table + ctfname + ': ' + m + '\n'
-  
-      f.close()
+      with open('./data/ciphertextfiles/' + ctfname, 'r') as f:
+    
+        ctfnames = ctfnames + ctfname + ' '
+        
+        ct = bytes.fromhex(f.read())
+        m = decFile(aeskey, iv, ct)
+        dec_table = dec_table + ctfname + ': ' + m + '\n'
+    
+        f.close()
+
+  end = timer()
 
   with open('./data/result.txt', 'w') as f:
     f.write(ctfnames + '\n\n' + dec_table)
     f.close()
+
+  # print results to terminal
+  print(ctfnames + '\n\n' + dec_table)
+  print('Search Time:', str(end - start))
 
   return
 

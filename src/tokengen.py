@@ -1,5 +1,5 @@
 # Searchable Encryption: Token Generation Module
-# Authors: Jonathan Kenney (M08837382) and Brennan Thomas (M########)
+# Authors: Jonathan Kenney (M08837382) and Brennan Thomas (M10668733)
 
 # IMPORTS
 import os

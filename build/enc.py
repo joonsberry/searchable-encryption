@@ -1,5 +1,5 @@
 # Searchable Encryption: Encryption Module
-# Author: Jonathan Kenney (M08837382) and Brennan Thomas (M########)
+# Author: Jonathan Kenney (M08837382) and Brennan Thomas (M10668733)
 
 # IMPORTS
 import os
@@ -7,6 +7,7 @@ import re
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import padding
+from timeit import default_timer as timer
 
 # CONSTANTS
 AES_BLOCK_SIZE = 16   # AES block size (bytes)
@@ -14,8 +15,6 @@ AES_BLOCK_SIZE = 16   # AES block size (bytes)
 # HELPER FUNCTIONS
 # encrypt a keyword with AES-ECB
 def encKeyword(sk, word):
-
-  print(word)
 
   m = word.encode('utf-8')
 
@@ -35,7 +34,7 @@ def encKeyword(sk, word):
 
   return cword
 
-# encrypt a keyword with AES-CBC
+# encrypt a file with AES-CBC
 def encFile(sk, iv, fi):
 
   m = b''
@@ -57,9 +56,11 @@ def encFile(sk, iv, fi):
   # generate the ciphertext and convert to hex
   ct = encryptor.update(m_padded) + encryptor.finalize()
 
-  ctfname = 'c' + fi.name[1] + '.txt'
+  # set ciphertext file name based on plaintext file name
+  ctfname = 'c' + os.path.splitext(fi.name)[0][1:] + '.txt'
 
   # write ciphertext to file in hex
+  os.makedirs('./data/ciphertextfiles', exist_ok=True)
   with open('./data/ciphertextfiles/' + ctfname, 'w') as f:
     f.write(ct.hex())
     f.close()
@@ -118,7 +119,11 @@ def main():
   iv = os.urandom(AES_BLOCK_SIZE)
 
   # build and return the encrypted index
+  start = timer()
   index = buildIndex('./data/files', prfkey, aeskey, iv)
+  end = timer()
+
+  print('Time to build index:', str(end - start))
 
   # format string to write index to text file
   write_string = ''
