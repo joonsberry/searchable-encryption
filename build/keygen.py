@@ -1,5 +1,5 @@
 # Searchable Encryption: PRF and AES Key Generation
-# Authors: Jonathan Kenney (M08837382) and Brennan Thomas (M########)
+# Authors: Jonathan Kenney (M08837382) and Brennan Thomas (M10668733)
 
 # IMPORTS
 from os import urandom
