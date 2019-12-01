@@ -16,7 +16,7 @@ pip3 install cryptography
 
 ## Execution
 
-First, create desired input files. These files should be located in the data/files folder and follow the naming convention `f#.txt` where `#` is a positive integer greater than 0.
+First, create desired input files. These files should be located in the data/files folder and follow the naming convention `f#.txt` where `#` is a positive integer.
 
 From **TOP DIRECTORY**, run in following order:
 
@@ -24,7 +24,7 @@ From **TOP DIRECTORY**, run in following order:
 ```
 python3 build/keygen.py 32
 ```
-_NOTE: key size parameter can be 16, 24, or 32_
+_NOTE: key size parameter can be 16, 24, or 32 (bytes)_
 
 ### enc.py
 ```

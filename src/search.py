@@ -24,6 +24,7 @@ def buildIndexFromString(index_string):
 
   return index
 
+# decrypt file ciphertext with AES-CBC
 def decFile(sk, iv, ct):
 
   # generate the AES cipher and decrpytor
